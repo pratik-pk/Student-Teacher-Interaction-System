@@ -11,6 +11,8 @@ String reemailid=request.getParameter("re_email");
 String ph=request.getParameter("phone");
 String password=request.getParameter("Password1");
 String confirmpassword=request.getParameter("Password2");
+try
+{
 Class.forName("oracle.jdbc.driver.OracleDriver");
 Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","pratik");
 PreparedStatement ps=con.prepareStatement("insert into Sign_up values(?,?,?,?,?,?,?,?)");
@@ -23,15 +25,21 @@ ps.setString(6,ph);
 ps.setString(7,password);
 ps.setString(8,confirmpassword);
 int i=ps.executeUpdate();
-
-			ps.close();
-		
-			con.close();
+ps.close();
+con.close();
 if(i!=0)
 	out.println("registered successfully");
      
 else
 	out.println("not registered");
+}
+			
+		
+catch(Exception e)
+{
+	e.printStackTrace();
+}			
+
 %>
 
 
